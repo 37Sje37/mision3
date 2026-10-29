@@ -11,7 +11,6 @@ export function App() {
   const [textoBusqueda, setTextoBusqueda] = useState('');
   const [rolSeleccionado, setRolSeleccionado] = useLocalStorage('lol_filtro_rol', 'Todos');
 
-  // Estado derivado (sin useState ni useEffect innecesarios)
   const campeonesFiltrados = filtrarCampeones(campeones, textoBusqueda, rolSeleccionado);
   const estadisticas = calcularEstadisticas(campeonesFiltrados);
 
