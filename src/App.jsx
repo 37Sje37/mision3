@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFetchChampions } from './hooks/useFetchChampions';
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { useLocalStorage } from './hooks/seLocalStorage.js';
 import { filtrarCampeones, calcularEstadisticas } from './utils/logic';
 import { Header } from './components/Header';
 import { Stats } from './components/Stats';

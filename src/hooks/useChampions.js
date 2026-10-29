@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchChampions } from '../utils/api';
+import { fetchChampions } from '../utils/api.js';
 
 export function useChampions() {
   const [champions, setChampions] = useState([]);
