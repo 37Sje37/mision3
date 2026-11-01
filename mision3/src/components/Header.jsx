@@ -1,28 +1,37 @@
-export function Header({ searchTerm, setSearchTerm, selectedRole, setSelectedRole, roles }) {
+import { traduccionRoles } from '../utils/logic.js';
+
+export function Header({
+  textoBusqueda = '',
+  setTextoBusqueda,
+  rolSeleccionado = 'Todos',
+  setRolSeleccionado
+}) {
+  const listaRoles = traduccionRoles ? Object.entries(traduccionRoles) : [];
+
   return (
-    <header className="header">
-      <h1>LoL Champion Explorer</h1>
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Buscar campeón..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          aria-label="Buscar campeones"
-        />
-        <select
-          value={selectedRole}
-          onChange={(e) => setSelectedRole(e.target.value)}
-          aria-label="Filtrar por rol"
-        >
-          <option value="ALL">Todos los roles</option>
-          {roles.map((role) => (
-            <option key={role} value={role}>
-              {role}
-            </option>
-          ))}
-        </select>
-      </div>
+    <header>
+      <h1>Campeones de LoL</h1>
+      
+      <input
+        type="text"
+        id="buscador"
+        placeholder="Busca un campeón..."
+        value={textoBusqueda}
+        onChange={(e) => setTextoBusqueda(e.target.value)}
+      />
+      
+      <select 
+        id="filtro-rol" 
+        value={rolSeleccionado} 
+        onChange={(e) => setRolSeleccionado(e.target.value)}
+      >
+        <option value="Todos">Todos los roles</option>
+        {listaRoles.map(([claveIngles, nombreEspanol]) => (
+          <option key={claveIngles} value={nombreEspanol}>
+            {nombreEspanol} ({claveIngles})
+          </option>
+        ))}
+      </select>
     </header>
   );
 }

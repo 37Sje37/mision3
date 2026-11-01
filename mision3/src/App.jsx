@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { useFetchChampions } from './hooks/useFetchChampions.js';
-import { useLocalStorage } from './hooks/seLocalStorage.js';
-import { filtrarCampeones, calcularEstadisticas } from './utils/logic.js';
-import { Header } from './components/Header.jsx';
-import { Stats } from './components/Stats.jsx';
-import { ChampionList } from './components/ChampionList.jsx';
+import { useFetchChampions } from './hooks/useFetchChampions';
+import { useLocalStorage } from './hooks/useLocalStorage';
+import { filtrarCampeones, calcularEstadisticas } from './utils/logic';
+import { Header } from './components/Header';
+import { Stats } from './components/Stats';
+import { ChampionList } from './components/ChampionList';
 
 export function App() {
-  const { campeones, loading, error, reintentar } = useFetchChampions();
+  const { campeones = [], loading, error, reintentar } = useFetchChampions();
   const [textoBusqueda, setTextoBusqueda] = useState('');
   const [rolSeleccionado, setRolSeleccionado] = useLocalStorage('lol_filtro_rol', 'Todos');
 
-  const campeonesFiltrados = filtrarCampeones(campeones, textoBusqueda, rolSeleccionado);
+  // Asegurar que campeones sea siempre un array antes de filtrar
+  const listaBase = Array.isArray(campeones) ? campeones : [];
+  const campeonesFiltrados = filtrarCampeones(listaBase, textoBusqueda, rolSeleccionado);
   const estadisticas = calcularEstadisticas(campeonesFiltrados);
 
   return (
-    <div>
+    <div style={{ minHeight: '100vh', padding: '20px' }}>
       <Header
         textoBusqueda={textoBusqueda}
         setTextoBusqueda={setTextoBusqueda}
