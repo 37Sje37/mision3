@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useFetchChampions } from './hooks/useFetchChampions';
+import { useFetchChampions } from './hooks/useFetchChampions.js';
 import { useLocalStorage } from './hooks/seLocalStorage.js';
-import { filtrarCampeones, calcularEstadisticas } from './utils/logic';
-import { Header } from './components/Header';
-import { Stats } from './components/Stats';
-import { ChampionList } from './components/ChampionList';
+import { filtrarCampeones, calcularEstadisticas } from './utils/logic.js';
+import { Header } from './components/Header.jsx';
+import { Stats } from './components/Stats.jsx';
+import { ChampionList } from './components/ChampionList.jsx';
 
 export function App() {
   const { campeones, loading, error, reintentar } = useFetchChampions();
