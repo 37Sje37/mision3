@@ -34,7 +34,7 @@ export function transformarCampeones(campeonesBrutos, version) {
 }
 
 export function filtrarCampeones(campeones, textoBusqueda, rolSeleccionado) {
-  let filtrados = campeones;
+  let filtrados = Array.isArray(campeones) ? campeones : [];
   
   if (textoBusqueda) {
     const textoLimpio = textoBusqueda.trim().toLowerCase();
@@ -51,16 +51,18 @@ export function filtrarCampeones(campeones, textoBusqueda, rolSeleccionado) {
 }
 
 export function calcularEstadisticas(campeones) {
-  if (campeones.length === 0) return { total: 0, dificultadMedia: 0, rolesTotales: {} };
+  if (!Array.isArray(campeones) || campeones.length === 0) {
+    return { total: 0, dificultadMedia: 0, rolesTotales: {} };
+  }
 
   const stats = campeones.reduce((acumulador, campeon) => {
-    const nuevosRoles = campeon.roles.reduce((accRoles, rol) => ({
+    const nuevosRoles = (campeon.roles || []).reduce((accRoles, rol) => ({
       ...accRoles,
       [rol]: (accRoles[rol] || 0) + 1
     }), acumulador.conteoRoles);
 
     return {
-      sumaDificultad: acumulador.sumaDificultad + campeon.dificultad,
+      sumaDificultad: acumulador.sumaDificultad + (campeon.dificultad || 0),
       conteoRoles: nuevosRoles
     };
   }, { sumaDificultad: 0, conteoRoles: {} });
